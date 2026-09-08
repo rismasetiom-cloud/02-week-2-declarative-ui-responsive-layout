@@ -1,95 +1,27 @@
-# Starter Template & Laporan Praktikum Pemrograman Mobile
-### Program Studi Sarjana Terapan Teknologi Rekayasa Perangkat Lunak (TRPL)
-**Politeknik Negeri Banyuwangi — Semester Ganjil 2026**
+# Laporan Praktikum Modul 02: Declarative UI & Responsive Layout
 
-Panduan interaktif lengkap: [Portal Codelabs TRPL Poliwangi](https://codelabs-poliwangi.github.io/MobileDev-Codelabs/)
-
----
-
-## 1. Identitas Mahasiswa
-
-> [!IMPORTANT]
-> **Wajib Mengganti Data di Bawah Ini!**  
-> Autograding CI/CD akan memeriksa apakah nilai *placeholder* di bawah ini telah diganti dengan Nama dan NIM Anda yang sebenarnya. Jika belum diganti, pengujian `verify_documentation_test.dart` akan gagal.
-
-| Informasi | Data Mahasiswa |
-|---|---|
-| **Nama Lengkap** |RISMA SETIO MUHTAFIROH |
-| **NIM** | 362558302037 |
-| **Kelas / Angkatan** | TRPL 2C / 2025 |
-| **Dosen Pengampu** | Sepyan Purnama Kristanto, M.Kom. |
+- **Nama**: [RISMA SETIO MUHTAFIROH]
+- **NIM**: [362558302037]
+- **Kelas / Prodi**: 2C - TEKNOLOGI REKAYASA PERANGKAT LUNAK
+- **Mata Kuliah**: Pemrograman Perangkat Bergerak (Semester 3)
 
 ---
 
-## 2. Peta Kemajuan Modul Praktikum
+## 1. Ringkasan Implementasi
+Saya merancang dashboard responsif dengan LayoutBuilder dan tema Material 3 pada modul 2 ini awalnya karna memang mengikuti modul, tapi dari situ saya mengerti dam menahami bagaimana konsep mob dev itu bekerja. menggunakan konsep widget tata letak fundamental (Row, Column, Expanded, Flexible, spacer, stack), mengelola state dengan StatefulWidget, serta merancang antarmuka responsif yang adaptif terhadap berbagai resolusi layar hp dan laptop. 
+yang artinya ketika saya menggunakan Flexible berarti widget akan otomatis menyesuaikan ukuran secara fleksibel. Row digunakkan untuk menyusun widget agar posisinya horizontal (dari kiri ke kanan) begitupun sebaliknya ketika menggunakan Column yang nantinya akan menyusun widget secara vertikal (dari atas kebawah). 
 
-Aplikasi ini menggunakan **Sistem Kontrol Akses Modul Terpusat (Smart Gating)** di file `lib/main.dart` agar mahasiswa belajar selaras dengan ritme materi dosen di kelas:
 
-| Modul | Topik & Arsitektur | Status Akses | Perintah Self-Test Lokal | Bobot CI |
-|:---:|---|:---:|---|:---:|
-| **#01** | Mobile Ecosystem, Toolchain & Profile App | `⚡ Aktif` | `flutter test test/modul_01_test.dart` | 20 Pts |
-| **#02** | Declarative UI, BoxConstraints & Responsive Dashboard | `🔒 Terkunci (W02)` | `flutter test test/modul_02_test.dart` | 20 Pts |
-| **#03** | Navigation (GoRouter), Riverpod & 4-State KRS App | `🔒 Terkunci (W03)` | `flutter test test/modul_03_test.dart` | 20 Pts |
-| **#04** | Networking, REST API Dio & Repository Pattern | `🔒 Terkunci (W04)` | `flutter test test/modul_04_test.dart` | 15 Pts |
-| **Dok** | Verifikasi Identitas Asli Mahasiswa di README | `Wajib` | `flutter test test/verify_documentation_test.dart` | 10 Pts |
-| **Lint** | Dart Code Formatting & Static Analysis | `Wajib` | `flutter analyze --no-fatal-infos` | 15 Pts |
-| **Total** | **Skor Maksimal Evaluasi Autograding** | — | `flutter test` | **100 Pts** |
+## 2. Bukti Tangkapan Layar (Running App)
+| Mode Portrait (Light) | Mode Dark Theme | Mode Landscape / Tablet (2 Kolom) |
+|---|---|---|
+| ![Portrait](./screenshots/Screenshot%202026-09-09%20032319.png) | ![Dark](./screenshots/Screenshot%202026-09-09%20032330.png) | ![Wide](./screenshots/Screenshot%202026-09-09%20033417.png) |
 
-> [!NOTE]
-> **Membuka Modul Terkunci saat di Laboratorium:**  
-> Jika Anda sedang berada di sesi perkuliahan laboratorium dan dosen mengumumkan pembukaan modul, klik kartu modul yang terkunci di aplikasi lalu masukkan **Token Akses Kelas** yang dibagikan oleh dosen (misal: `TRPL-M02`, `TRPL-M03`, `TRPL-M04`, atau master passcode `POLIWANGI2026`).
+## 3. Kendala Layout yang Dihadapi & Solusinya
+- **Kendala**: [Ketidak sesuaian frame/layout, jadi yg awalnya muncul garis2 hitam malah jadi nggak muncul apa2 kalau dipaksa mode potrait]
+- **Solusi**: [Mengganti Column (krn awalnya saya pake column) menjadi widget yg scrollable yaitu ListView. agar tampilannya dapat menyesuaikan secara otomatis dengan berbagai resolusi tanpa harus error lagi]
 
----
-
-## 3. Panduan Menjalankan & Menguji Kode
-
-### A. Persiapan Lingkungan (Setup)
-```bash
-# 1. Unduh seluruh dependensi paket Flutter
-flutter pub get
-
-# 2. Jalankan aplikasi pada emulator atau perangkat fisik Android/iOS/Web
-flutter run
-```
-
-### B. Pengujian Mandiri Sebelum Push (Self-Testing)
-Sebelum melakukan `git push` ke repositori tugas GitHub Anda, pastikan seluruh pengujian lulus di mesin lokal:
-
-```bash
-# 1. Periksa aturan kode linter Dart
-flutter analyze
-
-# 2. Jalankan unit & widget test modul yang sedang Anda kerjakan
-flutter test test/modul_01_test.dart
-flutter test test/modul_02_test.dart
-
-# 3. Jalankan seluruh test suite sekaligus
-flutter test
-```
-
----
-
-## 4. Konvensi Pesan Commit (Conventional Commits)
-
-Mahasiswa **wajib** menggunakan format pesan commit terstruktur:
-- `feat(w01): complete profile screen and identity info card`
-- `feat(w02): implement layoutbuilder responsive grid for tablet`
-- `fix(w02): resolve renderflex overflow in course card`
-- `feat(w03): setup gorouter declarative routes and krs notifier`
-- `feat(w04): integrate dio remote datasource and repository pattern`
-- `docs(readme): update student identity and ai reflection table`
-
----
-
-## 5. Catatan Penggunaan AI (Responsible AI Disclosure)
-
-Sesuai prinsip **Responsible AI** di lingkungan akademik Politeknik Negeri Banyuwangi, mahasiswa diperbolehkan menggunakan AI coding assistant (GitHub Copilot, Gemini Code Assist, ChatGPT) sebagai akselerator belajar, dengan kewajiban mencatat penggunaannya secara transparan pada tabel berikut:
-
-| Modul / File Kode | Alat AI yang Digunakan | Tujuan Penggunaan | Validasi Teknis yang Dilakukan Mahasiswa |
-|---|---|---|---|
-| *Contoh: lib/modul_02/widgets/course_card.dart* | *GitHub Copilot* | *Saran styling Elevation & BoxDecoration* | *Memeriksa contrast ratio WCAG AA dan padding antarmuka* |
-| *Contoh: lib/modul_04/models/announcement.dart* | *Gemini Code Assist* | *Pengecekan null-safety pada fromJson* | *Menambahkan fallback default string kosong untuk mencegah error runtime* |
-
----
-
-*Hak Cipta © 2026 Jurusan Bisnis dan Informatika (JBI), Politeknik Negeri Banyuwangi.*
+## 4. Jawaban Pertanyaan Refleksi
+1. **Efisiensi Single-pass BoxConstraints**: [...]
+2. **Kriteria Modularisasi Widget**: [...]
+3. **Manfaat M3 ThemeData Terpusat**: [agar system/aplikasi yang dibuat memiliki design yang konsisten, mulai dari warnanya, font, spasing, hingga ukuran fontnya. Dan apabila terjadi error hanya perlu memperbaikinya di satu file aja, lebih praktis tanpa harus menyeting properti disetiap widget yg lain secara manual.]
