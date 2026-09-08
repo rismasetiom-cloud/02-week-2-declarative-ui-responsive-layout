@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class HeaderBanner extends StatelessWidget {
   final String studentName;
   final String nim;
-  final int totalSks; // <--- Diterima dari dashboard
+  final int totalSks; //Diterima dari dashboard
 
   const HeaderBanner({
     super.key,
@@ -39,17 +39,20 @@ class HeaderBanner extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
+              Flexible(
+                child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: Colors.white.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(12),
-                ),
+                  borderRadius: BorderRadius.circular(12),          
+              ),
                 child: const Text(
                   'Semester 3 (2026/2027)',
                   style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w600),
                 ),
               ),
+              ),
+              const SizedBox(width: 8),
               const Icon(Icons.notifications_active_outlined, color: Colors.white, size: 20),
             ],
           ),
@@ -66,7 +69,9 @@ class HeaderBanner extends StatelessWidget {
           const SizedBox(height: 16),
           
           // Ringkasan status akademik (Gunakan totalSks dinamis di sini!)
+
           Row(
+            spacing: 8.0,
             children: [
               _StatPill(icon: Icons.bookmark, label: '$totalSks SKS Total'), // <-- Menampilkan badge total SKS
               const SizedBox(width: 8),
