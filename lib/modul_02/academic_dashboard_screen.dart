@@ -13,6 +13,7 @@ class AcademicDashboardScreen extends StatefulWidget {
 class _AcademicDashboardScreenState extends State<AcademicDashboardScreen> {
   final List<Course> _courses = Course.getSampleCourses();
   bool _isDarkMode = false;
+  String _selectedCategory = 'semua';
 
   void _toggleDarkMode() {
     setState(() {
@@ -90,11 +91,30 @@ class _AcademicDashboardScreenState extends State<AcademicDashboardScreen> {
               padding: const EdgeInsets.all(16),
               children: [
                 const HeaderBanner(),
-                const SizedBox(height: 16),
-                Text(
+                
+                 Text(
                   'Mata Kuliah Semester 3 (${_courses.length} Terdaftar)',
                   style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
+
+                 Wrap(
+                  spacing: 8.0,
+                  children: ['Semua', 'Teori', 'Praktikum'].map((category) {
+                    return ChoiceChip(
+                      label: Text(category),
+                      selected: _selectedCategory == category,
+                      onSelected: (selected) {
+                        if (selected) {
+                          setState(() {
+                            _selectedCategory = category;
+                          });
+                        }
+                      },
+                    );
+                  }).toList(),
+                ),
+                
+                const SizedBox(height: 16),
                 const SizedBox(height: 12),
                 ..._courses.map(
                     (course) => Padding(
