@@ -14,6 +14,8 @@ class _AcademicDashboardScreenState extends State<AcademicDashboardScreen> {
   final List<Course> _courses = Course.getSampleCourses();
   bool _isDarkMode = false;
   String _selectedCategory = 'semua';
+  
+  int get totalSks => _courses.fold(0, (sum, c) => sum + c.sks);
 
   void _toggleDarkMode() {
     setState(() {
@@ -57,11 +59,45 @@ class _AcademicDashboardScreenState extends State<AcademicDashboardScreen> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Kolom kiri: banner profil
-                    const Expanded(
+                    // Kolom kiri: banner profil & peringatan SKS
+                    Expanded(
                       flex: 2,
                       child: SingleChildScrollView(
-                        child: HeaderBanner(),
+                        child: Column(
+                          children: [
+                            HeaderBanner(totalSks: totalSks),
+                            
+                            // Peringatan Kuota SKS (> 24)
+                            if (totalSks > 24) ...[
+                              const SizedBox(height: 12),
+                              Container(
+                                padding: const EdgeInsets.all(12.0),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.errorContainer,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.warning_amber_rounded,
+                                      color: Theme.of(context).colorScheme.error,
+                                    ),
+                                    const SizedBox(width: 12),
+                                    Expanded(
+                                      child: Text(
+                                        'Peringatan: Total SKS melebihi batas maksimal 24 SKS per semester!',
+                                        style: TextStyle(
+                                          color: Theme.of(context).colorScheme.onErrorContainer,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ],
+                        ),
                       ),
                     ),
                     const SizedBox(width: 20),
@@ -90,14 +126,46 @@ class _AcademicDashboardScreenState extends State<AcademicDashboardScreen> {
             return ListView(
               padding: const EdgeInsets.all(16),
               children: [
-                const HeaderBanner(),
+                HeaderBanner(totalSks: totalSks),
                 
-                 Text(
+                // Peringatan Kuota SKS (> 24)
+                if (totalSks > 24) ...[
+                  const SizedBox(height: 12),
+                  Container(
+                    padding: const EdgeInsets.all(12.0),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.errorContainer,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.warning_amber_rounded,
+                          color: Theme.of(context).colorScheme.error,
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Text(
+                            'Peringatan: Total SKS melebihi batas maksimal 24 SKS per semester!',
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onErrorContainer,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+
+                const SizedBox(height: 16),
+                Text(
                   'Mata Kuliah Semester 3 (${_courses.length} Terdaftar)',
                   style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
+                const SizedBox(height: 8),
 
-                 Wrap(
+                Wrap(
                   spacing: 8.0,
                   children: ['Semua', 'Teori', 'Praktikum'].map((category) {
                     return ChoiceChip(
@@ -115,12 +183,11 @@ class _AcademicDashboardScreenState extends State<AcademicDashboardScreen> {
                 ),
                 
                 const SizedBox(height: 16),
-                const SizedBox(height: 12),
                 ..._courses.map(
-                    (course) => Padding(
-                      padding: const EdgeInsets.only(bottom: 12.0),
-                      child: CourseCard(course: course),
-                    ),
+                  (course) => Padding(
+                    padding: const EdgeInsets.only(bottom: 12.0),
+                    child: CourseCard(course: course),
+                  ),
                 ),
               ],
             );
