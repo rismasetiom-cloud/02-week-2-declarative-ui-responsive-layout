@@ -14,6 +14,53 @@ class CourseCard extends StatelessWidget {
       elevation: 2,
       margin: const EdgeInsets.only(bottom: 12),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap: () {
+          // Buka Bottom Sheet di sini
+          showModalBottomSheet(
+            context: context,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+            ),
+            builder: (context) {
+              return Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      course.name,
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text('Dosen: ${course.lecturer} • ${course.sks} SKS'),
+                    const Divider(height: 24),
+                    Text('Progress Pembelajaran: ${(course.progress * 100).toInt()}%'),
+                    const SizedBox(height: 16),
+                    SizedBox(
+                      width: double.infinity,
+                      child: FilledButton(
+                        style: FilledButton.styleFrom(
+                          backgroundColor: theme.colorScheme.primary,
+                          foregroundColor: theme.colorScheme.onPrimary,
+                        ),
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text('Tutup Rincian'),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        },
+
       // Pakai Stack agar badge SKS bisa menimpa pojok kanan atas kartu
       child: Stack(
         children: [
@@ -72,9 +119,7 @@ class CourseCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                // Jarak vertikal tetap sebelum progress bar.
-                // Jangan gunakan Spacer: tinggi Column ini mengikuti konten Card,
-                // sehingga tidak memiliki sisa tinggi yang pasti untuk dibagi.
+
                 const SizedBox(height: 16),
 
                 // Progress bar silabus
@@ -124,6 +169,7 @@ class CourseCard extends StatelessWidget {
           ),
         ],
       ),
+    ),
     );
   }
 }
