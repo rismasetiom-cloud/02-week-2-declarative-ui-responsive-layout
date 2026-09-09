@@ -22,6 +22,8 @@ yang artinya ketika saya menggunakan Flexible berarti widget akan otomatis menye
 - **Solusi**: [Mengganti Column (krn awalnya saya pake column) menjadi widget yg scrollable yaitu ListView. agar tampilannya dapat menyesuaikan secara otomatis dengan berbagai resolusi tanpa harus error lagi]
 
 ## 4. Jawaban Pertanyaan Refleksi
-1. **Efisiensi Single-pass BoxConstraints**: [...]
-2. **Kriteria Modularisasi Widget**: [...]
+1. **Efisiensi Single-pass BoxConstraints**: [Efisiensi mekanis layout Single-pass BoxConstraints di Flutter terletak pada efektivitasnya dalam meminimalkan beban komputasi saat rendering UI. Dengan prinsip utama "Constraints Go Down, Sizes Go Up, Parent Sets Position", Flutter hanya perlu menelusuri pohon widget (widget tree) sebanyak satu kali jalan saja untuk menentukan ukuran dan posisi setiap elemen. Proses ini sangat efisien karena parent widget langsung menurunkan batasan ukuran minimum dan maksimum, kemudian child widget menentukan ukurannya sendiri secara mandiri di dalam batasan tersebut sebelum melaporkannya kembali ke atas.]
+
+2. **Kriteria Modularisasi Widget**: [Kriteria pertama adalah reusability, yang berarti bahwa komponen antarmuka pengguna, seperti tombol kustom atau kartu data, dapat digunakan di berbagai tempat, sehingga tidak perlu membaginya menjadi widget kecil untuk mempermudah debugging dan kerja tim. Kriteria kedua adalah manajemen kompleksitas, yang berarti bahwa membagi komponen UI menjadi widget kecil akan mencegah duplikasi kode. Terakhir, elemen isolasi status dan kinerja rendering juga sangat penting.]
+
 3. **Manfaat M3 ThemeData Terpusat**: [agar system/aplikasi yang dibuat memiliki design yang konsisten, mulai dari warnanya, font, spasing, hingga ukuran fontnya. Dan apabila terjadi error hanya perlu memperbaikinya di satu file aja, lebih praktis tanpa harus menyeting properti disetiap widget yg lain secara manual.]
